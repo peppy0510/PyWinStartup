@@ -1,0 +1,15 @@
+BIN/11stIcon.ico
+*.png
+*.bmp
+*.gif
+*.ico
+*.ini
+*.bat
+*.sm
+Images/
+Skins/DefSkin/
+Sound/
+*.jpg
+BIN/
+Language/
+Emoticons/

@@ -1,0 +1,877 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window size="302,700" mininfo="170,700" caption="0,0,0,80" sizebox="5,5,5,5">
+	<Font name="굴림" size="12" bold="false" default="true" />
+	<Font name="돋움" size="12" bold="true" />
+	<Font name="굴림" size="12" bold="true" />
+	<Font name="Tahoma" size="10" bold="true" />
+	<Font name="돋움" size="12" bold="false" />
+	<Font name="돋움" size="11" bold="false" />
+	<Font name="Verdana" size="10" bold="false" />
+	<Font name="Tahoma" size="9" bold="false" />
+	<Font name="Verdana" size="9" bold="false" />
+
+	<Default name="VScrollBar" width="17" value="button1normalimage=&quot;file='scrollbar.png' source='0,0,17,17'&quot; button1hotimage=&quot;file='scrollbar.png' source='17,0,34,17,17'&quot; button1pushedimage=&quot;file='scrollbar.png' source='34,0,51,17'&quot; button2normalimage=&quot;file='scrollbar.png' source='0,34,17,51'&quot; button2hotimage=&quot;file='scrollbar.png' source='17,34,34,51'&quot; button2pushedimage=&quot;file='scrollbar.png' source='34,34,51,51'&quot; thumbnormalimage=&quot;file='scrollbar.png' source='0,51,17,152'&quot; thumbhotimage=&quot;file='scrollbar.png' source='17,51,34,152'&quot; thumbpushedimage=&quot;file='scrollbar.png' source='34,51,51,152'&quot; bknormalimage=&quot;file='scrollbar.png' source='0,17,17,34'&quot;" />
+
+	<HorizontalLayout name="bg" hole="true">
+		<VerticalLayout name="profilestrok" inset="1,1,1,1" bordersize="1" bordercolor="#FFA0A0A0">
+
+			<!-- caption area -->
+			<HorizontalLayout name="captionArea" height="26" bkcolor="#FF75C2D4">
+				<Control width="11" />
+				<!-- bi -->
+				<VerticalLayout width="64">
+					<Control height="11" />
+					<Button name="nateonbi"
+									mouse="false"
+									width="64" height="15"
+									normalimage="BI_nateon_01.png"
+									hotimage="BI_nateon_01.png"
+									pushedimage="BI_nateon_01.png"
+					/>
+				</VerticalLayout>
+				<Control />
+				<!--
+				<VerticalLayout width="46">
+					<Slider name="TransparentSlide" tooltip="창의 투명도를 조절합니다."
+									float="true"
+									keyboard="false"
+									pos="0,8,39,17"
+									width="39" height="9"
+									bkimage="file='chat_control_opacity_bar.png' dest='0,4,39,6'"
+									textcolor="#FF000000" disabledtextcolor="#FFA7A6AA"
+									align="center"
+									min="50" max="255"
+									value="255" step="10" hor="true"
+									thumbimage="chat_control_opacity_handle.png"
+									thumbsize="8,9"
+					/>
+				</VerticalLayout>
+				-->
+				<VerticalLayout width="117">
+					<Control height="11" />
+					<HorizontalLayout height="15">
+						<!-- menu -->
+						<Button name="menubtn"
+										width="37" height="15"
+										normalimage="btn_menu.png"
+										hotimage="btn_menu_over.png"
+										pushedimage="btn_menu_down.png"
+						/>
+						<Control width="1" />
+						<!-- seperator -->
+						<Button name="sep"
+										mouse="false"
+										width="6" height="15"
+										normalimage="bar_v_01.png"
+										hotimage="bar_v_01.png"
+										pushedimage="bar_v_01.png"
+						/>
+            <Control width="1" />
+            <!-- mode -->
+            <Button name="modebtn" tooltip="기본 또는 미니모드로 전환"
+										width="15" height="15"
+										normalimage="btn_winmode.png"
+										hotimage="btn_winmode_over.png"
+										pushedimage="btn_winmode_down.png"
+						/>
+						<Control width="1" />
+            <!-- minimize -->
+            <Button name="minbtn" tooltip="최소화"
+										width="15" height="15"
+										normalimage="btn_winminimize.png"
+										hotimage="btn_winminimize_over.png"
+										pushedimage="btn_winminimize_down.png"
+						/>
+						<Control width="1" />
+						<Button name="maxbtn" tooltip="최대화"
+										visible="false"
+										width="15" height="15"
+										normalimage="btn_winmaximize.png"
+										hotimage="btn_winmaximize_over.png"
+										pushedimage="btn_winmaximize_down.png"
+						/>
+						<Button name="restorebtn" tooltip="이전 크기로 복원"
+										visible="false"
+										width="15" height="15"
+										normalimage="btn_windefault.png"
+										hotimage="btn_windefault_over.png"
+										pushedimage="btn_windefault_down.png"
+						/>
+						<Control width="1" />
+						<!-- close -->
+						<Button name="closebtn" tooltip="창 닫기"
+										width="15" height="15"
+										normalimage="btn_winclose.png"
+										hotimage="btn_winclose_over.png"
+										pushedimage="btn_winclose_down.png"
+						/>
+						<Control width="9" />
+					</HorizontalLayout>
+				</VerticalLayout>
+			</HorizontalLayout>
+
+			<!-- private area -->
+      <HorizontalLayout name="mainProfile" height="54" bkcolor="#FF75C2D4">
+        <Control width="11" />
+
+        <VerticalLayout width="66">
+          <Control height="16" />
+          <HorizontalLayout height="32">
+            <Button name="myfileBtn"
+                    tooltip="내 파일함 열기"
+                    width="32" height="32"
+                    normalimage= "btn_main_file.png"
+                    hotimage=    "btn_main_file_over.png"
+                    pushedimage= "btn_main_file_down.png"
+            />
+
+            <Control width="1" />
+
+            <Button name="troomBtn"
+                    tooltip="팀룸 열기"
+                    width="32" height="32"
+                    normalimage= "btn_main_troom.png"
+                    hotimage=    "btn_main_troom_over.png"
+                    pushedimage= "btn_main_troom_down.png"
+            />
+          </HorizontalLayout>
+
+          <Button name="myfileBtnBadge" visible="false"
+              width="15" height="15"
+              float="true" pos="27,13,42,28"
+              normalimage= "ico_badge_new.png"
+              hotimage=    "ico_badge_new.png"
+              pushedimage= "ico_badge_new.png"
+						/>
+        </VerticalLayout>
+
+        <Control />
+
+
+      </HorizontalLayout>
+
+			<!--buddylist area -->
+			<VerticalLayout name="mainContents" minheight="1" bkcolor="#FFFFFFFF">
+				<HorizontalLayout height="31">
+					<VerticalLayout width="1">
+						<Button name="showServicebtn" tooltip="서비스탭을 열고 닫음"
+						/>
+					</VerticalLayout>
+					<Control width="5" />
+					<VerticalLayout width="15">
+						<Control height="8" />
+						<VerticalLayout height="15">
+							<Button name="searchBtn"
+											mouse="false"
+											float="true"
+											width="15" height="15"
+											normalimage="img_main_search.png"
+											hotimage="img_main_search.png"
+											pushedimage="img_main_search.png"
+							/>
+						</VerticalLayout>
+						<Control height="8" />
+					</VerticalLayout>
+					<Control width="5" />
+					<VerticalLayout inset="0,1,1,1">
+						<Edit name="searchEdit" tooltip="이름, 전화번호, 이메일, 대화명, 팀룸명으로 검색"
+									text="팀룸 또는 친구 검색"
+									height="31"
+									font="4"
+									textcolor="#FFC6C6C6"
+									textpadding="0,0,2,0"
+									bordersize="0"
+						/>
+					</VerticalLayout>
+					<Control width="6" />
+					<VerticalLayout width="13">
+						<Control height="9" />
+						<VerticalLayout height="13">
+							<Button name="reloadBtn"
+											visible="false"
+											float="true"
+											width="13" height="13"
+											normalimage="btn_searchcancel.png"
+											hotimage="btn_searchcancel_over.png"
+											pushedimage="btn_searchcancel_down.png"
+							/>
+						</VerticalLayout>
+						<Control height="9" />
+					</VerticalLayout>
+					<Control width="6" />
+					<HorizontalLayout width="58">
+						<VerticalLayout width="29">
+							<Button name="addFriendBtn" tooltip="친구 추가하기"
+											width="29" height="31"
+											normalimage="btn_main_addfrd.png"
+											hotimage="btn_main_addfrd_over.png"
+											pushedimage= "btn_main_addfrd_down.png"
+							/>
+						</VerticalLayout>
+						<VerticalLayout width="29">
+							<Button name="viewModeBtn" tooltip="그룹 추가 및 접속된 친구 보기 설정"
+											width="29" height="31"
+											normalimage="btn_main_menu.png"
+											hotimage="btn_main_menu_over.png"
+											pushedimage="btn_main_menu_down.png"
+							/>
+						</VerticalLayout>
+						<!--
+						<Button name="addFriendBtnBadge"
+										visible="false"
+										mouse="false"
+										float="true"
+										pos="9,1,21,16"
+										width="15" height="15"
+										font="7"
+										normalimage="ico_badge_new.png"
+										hotimage="ico_badge_new.png"
+										pushedimage="ico_badge_new.png"
+						/>
+						-->
+						<HorizontalLayout width="33" height="15" float="true" pos="0,0,33,15" mouse="false" mousechild="false">
+							<Control width="" />
+							<Button name="addFriendBtnBadge"
+											visible="false"
+											mouse="false"
+											width="15" height="15"
+											font="7"
+											normalimage="ico_badge_new.png"
+											hotimage="ico_badge_new.png"
+											pushedimage="ico_badge_new.png"
+							/>
+						</HorizontalLayout>
+					</HorizontalLayout>
+					<HorizontalLayout width="27" height="15" float="true" pos="0,0,27,15" mouse="false" mousechild="false">
+						<Control width="" />
+						<Button name="messageBoxBadge"
+										mouse="false"
+										width="15" height="15"
+										font="7"
+										textcolor="#FFFFFFFF"
+										textpadding="0,0,0,2"
+										normalimage="file='ico_badge_num.png' corner='0,0,0,0'"
+						/>
+					</HorizontalLayout>
+				</HorizontalLayout>
+				<Control height="1" bkcolor="#FFEBEBEB" />
+				<HorizontalLayout name="buddyTreeMainContain">
+					<BuddyTree name="mainBuddyTree"
+										 header="hidden"
+										 itemselectedbkcolor="FFFFFFFF"
+										 itemhotbkcolor="FFFFFFFF"
+										 itemshowhtml="true"
+										 vscrollbar="true"
+										 groupitem="namecolor='FF626262' namefont='1' countcolor='FF9C9C9C' countfont='6' toggleimage='ico_main_grp_open.png:ico_main_grp_close.png' togglesize='13,13'"
+										 groupitemex="specialnamecolor='FF626262' specialcountcolor='FF9C9C9C' specialtoggleimage='ico_main_grp_open.png:ico_main_grp_close.png'"
+										 buddyitem="frameimage='profileimg_frame_30x30.png' thumbsize='30,30' namecolor='FF000000' namefont='4' nickcolor='FFA3A3A3' nickfont='4' cakeimage='ico_birthday.png' cakesize='13,13' homeimage='ico_minihompy.png:ico_minihompy_new.png' homesize='14,12' deviceimage='ico_poc_pc.png:ico_poc_mobile.png:ico_poc_p&m.png' devicesize='13,13'"
+										 buddyitemex="blocknamecolor='FFC0C0C0' blocknickcolor='FFE0E0E0' blockimage='ico_poc_block.png'"
+										 troomitem="icoimage='ico_troom.png' icosize='13,13' shutdownimage='profileimg_shutdown_30x30.png' badgeimage='ico_badge_buddy_new.png' badgesize='15,13'"
+										 troommakeitem="name='팀룸 만들기' image='troom_profile_default.png'"
+										 troominvtitem="name='팀룸 초대 요청이 있습니다.' image='troom_profile_default.png' countcolor='FFFFFFFF' countfont='7' countimage='ico_badge_num.png' countsize='15,15' count2image='ico_badge_num_long1.png' count2size='20,15' count3image='ico_badge_num_long2.png' count3size='25,15'"
+										 profileitem="editimage='ico_mypfedit.png' editsize='14,12'"
+										 emptyinfotext="검색 조건에 맞는 대화 상대가 없습니다."
+										 emptyinfocolor="FF9C9C9C"
+										 emptyinfofont="5"
+					/>
+				</HorizontalLayout>
+			</VerticalLayout>
+
+			<!-- subaccount logged in -->
+			<HorizontalLayout name="subProfile" visible="false"
+							  height="54"
+							  bkimage="file='2ndID_skin_main.png' corner='2,2,2,2'">
+				<Control width="13" />
+
+				<VerticalLayout>
+					<Control height="11" />
+					<Label text="부계정" textcolor="#FFFFFFFF" font="1" width="46" />
+					<Control height="2" />
+					<Label name="subProfilename" text=" " endellipsis="true" textcolor="#FFFFFFFF" font="4" />
+				</VerticalLayout>
+
+				<Control width="10" />
+
+				<VerticalLayout name="2ndID_loginedButton">
+					<Button name="subMyfileBtn"
+									tooltip="내 파일함 열기"
+									float="true"
+									pos="0,25,22,47"
+									width="22" height="22"
+									normalimage="2ndID_btn_my_file.png"
+									hotimage="2ndID_btn_my_file_over.png"
+									pushedimage="2ndID_btn_my_file_down.png"
+					/>
+					<Button name="subLogout"
+									tooltip="부계정 로그아웃"
+									float="true"
+									pos="32,26,79,46"
+									width="47" height="20"
+									normalimage="2ndID_btn_my_logout.png"
+									hotimage="2ndID_btn_my_logout_over.png"
+									pushedimage="2ndID_btn_my_logout_down.png"
+					/>
+				</VerticalLayout>
+
+				<Control width="10" />
+
+			</HorizontalLayout>
+
+			<!-- subaccount buddylist area -->
+			<VerticalLayout name="subContents" visible="false" bkcolor="#FFFFFFFF">
+				<HorizontalLayout name="subSearchArea" height="31">
+					<Control width="5" />
+					<VerticalLayout width="15">
+						<Control height="8" />
+						<VerticalLayout height="15">
+							<Button name="subSearchBtn"
+											mouse="false"
+											float="true"
+											width="15" height="15"
+											normalimage="img_main_search.png"
+											hotimage="img_main_search.png"
+											pushedimage="img_main_search.png"
+							/>
+						</VerticalLayout>
+						<Control height="8" />
+					</VerticalLayout>
+					<Control width="5" />
+					<VerticalLayout inset="0,1,1,1">
+						<Edit name="subSearchEdit" tooltip="이름, 전화번호, 이메일, 대화명으로 검색"
+									text="친구 검색"
+									height="31"
+									font="4"
+									textcolor="#FFC6C6C6"
+									textpadding="0,0,2,0"
+									bordersize="0"
+						/>
+					</VerticalLayout>
+					<Control width="6" />
+					<VerticalLayout width="13">
+						<Control height="9" />
+						<VerticalLayout height="13">
+							<Button name="subReloadBtn"
+											visible="false"
+											float="true"
+											width="13" height="13"
+											normalimage="btn_searchcancel.png"
+											hotimage="btn_searchcancel_over.png"
+											pushedimage="btn_searchcancel_down.png"
+							/>
+						</VerticalLayout>
+						<Control height="9" />
+					</VerticalLayout>
+					<Control width="6" />
+					<HorizontalLayout width="58">
+						<Button name="subAddFriendBtn" tooltip="친구 추가하기"
+										float="true"
+										pos="0,0,29,31"
+										width="29" height="31"
+										normalimage="btn_main_addfrd.png"
+										hotimage="btn_main_addfrd_over.png"
+										pushedimage="btn_main_addfrd_down.png"
+						/>
+						<Button name="subViewModeBtn" tooltip="그룹 추가 및 접속된 친구 보기 설정"
+										float="true"
+										pos="29,0,58,31"
+										width="29" height="31"
+										normalimage="btn_main_menu.png"
+										hotimage="btn_main_menu_over.png"
+										pushedimage="btn_main_menu_down.png"
+						/>
+						<!--
+						<Button name="subAddFriendBtnBadge"
+										visible="false"
+										mouse="false"
+										float="true"
+										pos="9,1,21,16"
+										width="15" height="15"
+										font="7"
+										normalimage="ico_badge_new.png"
+										hotimage="ico_badge_new.png"
+										pushedimage="ico_badge_new.png"
+						/>
+						-->
+						<HorizontalLayout width="33" height="15" float="true" pos="0,0,33,15" mouse="false" mousechild="false">
+							<Control width="" />
+							<Button name="subAddFriendBtnBadge"
+											visible="false"
+											mouse="false"
+											width="15" height="15"
+											font="7"
+											normalimage="ico_badge_new.png"
+											hotimage="ico_badge_new.png"
+											pushedimage="ico_badge_new.png"
+							/>
+						</HorizontalLayout>
+					</HorizontalLayout>
+				</HorizontalLayout>
+				<Control name="subDownGapArea" height="1" bkcolor="#FFEBEBEB" />
+				<!-- subaccount buddylist -->
+				<HorizontalLayout name="subBuddyTreeArea">
+					<BuddyTree name="subBuddyTree"
+										 header="hidden"
+										 itemselectedbkcolor="FFFFFFFF"
+										 itemhotbkcolor="FFFFFFFF"
+										 itemshowhtml="true"
+										 vscrollbar="true"
+										 groupitem="namecolor='FF626262' namefont='1' countcolor='FF9C9C9C' countfont='6' toggleimage='ico_main_grp_open.png:ico_main_grp_close.png' togglesize='13,13'"
+										 groupitemex="specialnamecolor='FF626262' specialcountcolor='FF9C9C9C' specialtoggleimage='ico_main_grp_open.png:ico_main_grp_close.png'"
+										 buddyitem="frameimage='profileimg_frame_30x30.png' thumbsize='30,30' namecolor='FF000000' namefont='4' nickcolor='FFA3A3A3' nickfont='4' cakeimage='ico_birthday.png' cakesize='13,13' homeimage='ico_minihompy.png:ico_minihompy_new.png' homesize='14,12' deviceimage='ico_poc_pc.png:ico_poc_mobile.png:ico_poc_p&m.png' devicesize='13,13'"
+										 buddyitemex="blocknamecolor='FFC0C0C0' blocknickcolor='FFE0E0E0' blockimage='ico_poc_block.png'"
+										 profileitem="editimage='ico_mypfedit.png' editsize='14,12'"
+										 emptyinfotext="검색 조건에 맞는 대화 상대가 없습니다."
+										 emptyinfocolor="FF9C9C9C"
+										 emptyinfofont="5"
+					/>
+				</HorizontalLayout>
+			</VerticalLayout>
+
+			<!-- subaccount logged out-->
+			<HorizontalLayout name="subLoginArea"
+												visible="false"
+												height="40"
+												bkimage="file='2ndID_skin_main_logout.png' corner='0,2,0,1'">
+				<Control width="15" />
+
+				<VerticalLayout>
+					<Control height="1" />
+					<HorizontalLayout>
+						<Label text="부계정" textcolor="#FF000000" font="1" width="46" />
+						<Label name="subID"
+									 text=" "
+									 align="left"
+									 endellipsis="true"
+									 textcolor="#FF000000"
+									 font="4"
+						/>
+					</HorizontalLayout>
+				</VerticalLayout>
+
+				<Control width="10" />
+
+				<VerticalLayout name="2ndID_logoutedButton">
+					<Control height="10" />
+					<Button name="subLoginError"
+									tooltip="부계정 로그인 오류"
+									visible="false"
+									float="true"
+									pos="18,10,38,30"
+									width="20" height="20"
+									normalimage="2ndID_btn_my_loginfail.png"
+									hotimage="2ndID_btn_my_loginfail_over.png"
+									pushedimage="2ndID_btn_my_loginfail_down.png"
+					/>
+					<Button name="subLogin"
+									tooltip="부계정 로그인"
+									float="true"
+									pos="0,10,38,30"
+									width="38" height="20"
+									normalimage="2ndID_btn_my_login.png"
+									hotimage="2ndID_btn_my_login_over.png"
+									pushedimage="2ndID_btn_my_login_down.png"
+					/>
+				</VerticalLayout>
+
+				<Control width="10" />
+
+			</HorizontalLayout>
+
+			<!-- profile edit -->
+			<VerticalLayout name="layerpfedit"
+											visible="false"
+											mouse="true"
+											float="true"
+											width="" height="130"
+											inset="1,1,1,1"
+											padding="5,2,4,0"
+											bordersize="1"
+											bordercolor="#FFA0A0A0"
+											bkimage="file='popup_skin_bg.png' source='0,0,9,26' corner='1,25,1,0'">
+				<HorizontalLayout name="pfedittop" mouse="false" height="24">
+					<Control mouse="false" width="10" />
+					<VerticalLayout mouse="false" mousechild="false" width="100">
+						<Control height="6" />
+						<VerticalLayout height="12">
+							<Label text="대화명 변경"
+										 font="2"
+										 width="100" height="12"
+										 textcolor="#FF222222"
+							/>
+						</VerticalLayout>
+						<Control height="6" />
+					</VerticalLayout>
+					<Control mouse="false" />
+					<VerticalLayout mouse="false" width="15">
+						<Control mouse="false" height="4" />
+						<Button name="pfeditclose" tooltip="닫기"
+										width="15" height="15"
+										normalimage="btn_closepopup.png"
+										hotimage="btn_closepopup_over.png"
+										pushedimage="btn_closepopup_down.png"
+						/>
+						<Control mouse="false" height="5" />
+					</VerticalLayout>
+					<Control mouse="false" width="6" />
+				</HorizontalLayout>
+				<VerticalLayout name="pfeditmid" mouse="false" height="72">
+					<Control mouse="false" height="10" />
+					<HorizontalLayout mouse="false" height="52">
+						<Control mouse="false" width="10" />
+						<HorizontalLayout name="pfeditmidinput"
+															mouse="false"
+															inset="2,2,2,2"
+															bkcolor="#FFFFFFFF"
+															bordersize="1"
+															bordercolor="#FFAAAAAA">
+							<Control name="pfeditinput" mouse="false" />
+							<VerticalLayout mouse="false" width="22">
+								<Control mouse="false" />
+								<Button name="emoticonBtn"
+												width="22" height="22"
+												normalimage="file='btn_main_emoticon.png'"
+												hotimage="file='btn_main_emoticon_over.png'"
+												pushedimage="file='btn_main_emoticon_down.png'"
+								/>
+							</VerticalLayout>
+						</HorizontalLayout>
+						<Control mouse="false" width="10" />
+					</HorizontalLayout>
+					<Control mouse="false" height="10" />
+				</VerticalLayout>
+				<VerticalLayout mouse="false" height="34">
+					<HorizontalLayout mouse="false" height="22">
+						<Control mouse="false" />
+						<Button name="pfeditapply" tooltip="확인"
+										width="42" height="22"
+										normalimage="btn_pop_confirm_s.png"
+										hotimage="btn_pop_confirm_s_over.png"
+										pushedimage="btn_pop_confirm_s_down.png"
+						/>
+						<Control mouse="false" width="6" />
+						<Button name="pfeditcancel" tooltip="취소"
+										width="42" height="22"
+										normalimage="btn_pop_cancel_s.png"
+										hotimage="btn_pop_cancel_s_over.png"
+										pushedimage="btn_pop_cancel_s_down.png"
+						/>
+						<Control mouse="false" />
+					</HorizontalLayout>
+					<Control mouse="false" height="12" />
+				</VerticalLayout>
+			</VerticalLayout>
+
+			<!-- subprofile edit -->
+			<VerticalLayout name="sublayerpfedit"
+											visible="false"
+											mouse="true"
+											float="true"
+											width="" height="130"
+											inset="1,1,1,1"
+											padding="5,2,4,0"
+											bordersize="1"
+											bordercolor="#FFA0A0A0"
+											bkimage="file='2ndID_popup_skin_bg.png' source='0,0,9,26' corner='1,25,1,0'">
+				<HorizontalLayout name="subpfedittop" mouse="false" height="24">
+					<Control mouse="false" width="10" />
+					<VerticalLayout mouse="false" mousechild="false" width="100">
+						<Control height="6" />
+						<VerticalLayout height="12">
+							<Label text="대화명 변경"
+										 font="2"
+										 width="100" height="12"
+										 textcolor="#FFFFFFFF"
+							/>
+						</VerticalLayout>
+						<Control height="6" />
+					</VerticalLayout>
+					<Control mouse="false" />
+					<VerticalLayout mouse="false" width="15">
+						<Control mouse="false" height="4" />
+						<Button name="subpfeditclose" tooltip="닫기"
+										width="15" height="15"
+										normalimage="btn_closepopupw.png"
+										hotimage="btn_closepopupw_over.png"
+										pushedimage="btn_closepopupw_down.png"
+						/>
+						<Control mouse="false" height="5" />
+					</VerticalLayout>
+					<Control mouse="false" width="6" />
+				</HorizontalLayout>
+				<VerticalLayout name="subpfeditmid" mouse="false" height="72">
+					<Control mouse="false" height="10" />
+					<HorizontalLayout mouse="false"height="52">
+						<Control mouse="false" width="10" />
+						<HorizontalLayout name="subpfeditmidinput"
+															mouse="false"
+															inset="2,2,2,2"
+															bkcolor="#FFFFFFFF"
+															bordersize="1"
+															bordercolor="#FFAAAAAA">
+							<Control name="subpfeditinput" mouse="false" />
+							<VerticalLayout mouse="false" width="22">
+								<Control mouse="false"  />
+								<Button name="subemoticonBtn"
+												width="22" height="22"
+												normalimage="file='btn_main_emoticon.png'"
+												hotimage="file='btn_main_emoticon_over.png'"
+												pushedimage="file='btn_main_emoticon_down.png'"
+								/>
+							</VerticalLayout>
+						</HorizontalLayout>
+						<Control mouse="false" width="10" />
+					</HorizontalLayout>
+					<Control mouse="false" height="10" />
+				</VerticalLayout>
+				<VerticalLayout mouse="false" height="34">
+					<HorizontalLayout mouse="false" height="22">
+						<Control mouse="false" />
+						<Button name="subpfeditapply" tooltip="확인"
+										width="42" height="22"
+										normalimage="btn_pop_confirm_s.png"
+										hotimage="btn_pop_confirm_s_over.png"
+										pushedimage="btn_pop_confirm_s_down.png"
+						/>
+						<Control mouse="false" width="6" />
+						<Button name="subpfeditcancel" tooltip="취소"
+										width="42" height="22"
+										normalimage="btn_pop_cancel_s.png"
+										hotimage="btn_pop_cancel_s_over.png"
+										pushedimage="btn_pop_cancel_s_down.png"
+						/>
+						<Control mouse="false" />
+					</HorizontalLayout>
+					<Control mouse="false" height="12" />
+				</VerticalLayout>
+			</VerticalLayout>
+
+			<!-- emoticon help layer -->
+			<!--
+			<Container name="LayerReqEmoticon" visible="false"
+					   float="true" pos="61,44,61,44"
+					   height="96" width="170">
+				<VerticalLayout>
+					<HorizontalLayout height="6" />
+					<HorizontalLayout>
+						<VerticalLayout bordersize="1"
+									    bordercolor="#FF777777"
+									    bkcolor="#FFFFFFFF">
+							<Button name="btnCloseUseEmoticon"
+								    float="true" pos="151,6,165,20"
+								    normalimage= "btn_title_close.png"
+								    hotimage=    "btn_title_close_over.png"
+								    pushedimage= "btn_title_close_down.png"
+							/>
+							<Label float="true" pos="1,20,169,32"
+								   text="새로운 이모티콘으로"
+								   textcolor="#FF333333"
+								   font="4"
+								   align="vcenter"
+							/>
+							<Label float="true" pos="1,38,169,50"
+								   text="나의 상태를 표시해 보세요."
+								   textcolor="#FF333333"
+								   font="4"
+								   align="vcenter"
+							/>
+							<CheckBox name="chkUseEmoticon"
+									  float="true" pos="35,65,50,80"
+									  selected="false"
+									  normalimage=   "btn_uncheck_03.png"
+									  selectedimage= "btn_check_03.png"
+							/>
+							<Label name="lblUseEmoticon"
+								   float="true" pos="58,65,135,80"
+								   text="다시 보지 않기"
+								   textcolor="#FF9C9C9C"
+								   font="5"
+							/>
+						</VerticalLayout>
+					</HorizontalLayout>
+					<Button float="true" pos="26,0,37,7"
+						    mouse="false"
+						    width="11" height="7"
+						    normalimage="layer_tail.png"
+					/>
+				</VerticalLayout>
+			</Container>
+			-->
+
+			<!-- profile upload layer -->
+			<Container name="LayerReqProfileImg"
+								 visible="false"
+								 float="true"
+								 pos="0,79,0,79">
+				<VerticalLayout>
+					<Control height="92" />
+					<Control height="6" />
+					<HorizontalLayout width="302" height="106">
+						<Control width="20" />
+						<VerticalLayout width="262" bkcolor="#FFFFFFFF" bordersize="1" bordercolor="#FF777777">
+							<Button name="btnCloseRegProfile"
+											float="true"
+											pos="243,6,257,20"
+											normalimage="btn_title_close.png"
+											hotimage="btn_title_close_over.png"
+											pushedimage="btn_title_close_down.png"
+							/>
+							<Label text="내 프로필은 여기서 확인하세요."
+										 float="true"
+										 pos="1,26,261,38"
+										 textcolor="#FF000000"
+										 font="4"
+										 align="vcenter"
+							/>
+							<Label text="프로필 사진과 대화명을 변경할 수 있어요."
+										 float="true"
+										 pos="1,44,261,56"
+										 textcolor="#FF000000"
+										 font="4"
+										 align="vcenter"
+							/>
+							<CheckBox name="chkRegProfile"
+												float="true"
+												pos="83,75,98,90"
+												selected="false"
+												normalimage="btn_uncheck_03.png"
+												selectedimage="btn_check_03.png"
+							/>
+							<Label name="lblRegProfile" text="다시 보지 않기"
+										 float="true"
+										 pos="106,75,183,90"
+										 textcolor="#FF9C9C9C"
+										 font="5"
+							/>
+						</VerticalLayout>
+						<Control width="20" />
+					</HorizontalLayout>
+					<Control height="*" />
+					<Button mouse="false"
+									float="true"
+									pos="89,92,100,99"
+									width="11" height="7"
+									normalimage="layer_tail.png"
+					/>
+				</VerticalLayout>
+			</Container>
+
+			<!-- troom help layer -->
+			<VerticalLayout name="LayerRegTRoom"
+											visible="false"
+											float="true"
+											pos="30,68,0,0"
+											width="210" height="115">
+				<Control height="3" />
+				<Control height="6" />
+				<HorizontalLayout height="106">
+					<VerticalLayout bkcolor="#FFFFFFFF" bordersize="1" bordercolor="#FF777777">
+						<Button name="btnCloseRegTRoom"
+										float="true"
+										pos="191,6,205,20"
+										normalimage="btn_title_close.png"
+										hotimage="btn_title_close_over.png"
+										pushedimage="btn_title_close_down.png"
+						/>
+						<Label text="트리가 팀룸으로 변경되었어요."
+										float="true"
+										pos="1,29,208,41"
+										textcolor="#FF000000"
+										font="4"
+										align="vcenter"
+						/>
+						<Label text="새로운 그룹대화를 시작해 보세요."
+										float="true"
+										pos="1,47,208,59"
+										textcolor="#FF000000"
+										font="4"
+										align="vcenter"
+						/>
+						<CheckBox name="chkRegTRoom"
+											float="true"
+											pos="59,75,73,89"
+											selected="false"
+											normalimage="btn_uncheck_03.png"
+											selectedimage="btn_check_03.png"
+						/>
+						<Label name="lblRegTRoom" text="다시 보지 않기"
+										float="true"
+										pos="79,75,156,90"
+										textcolor="#FF9C9C9C"
+										font="5"
+						/>
+					</VerticalLayout>
+				</HorizontalLayout>
+				<Control height="*" />
+				<Button mouse="false"
+								float="true"
+								pos="25,3,36,10"
+								width="11" height="7"
+								normalimage="layer_tail.png"
+				/>
+			</VerticalLayout>
+
+			<!-- cyworld help layer -->
+			<!--
+			<Container name="LayerReqCy" visible="false"
+				       float="true" pos="215,73,289,169"
+				       height="76" width="170">
+				<VerticalLayout>
+					<HorizontalLayout height="6" />
+					<HorizontalLayout>
+						<VerticalLayout bordersize="1"
+									    bordercolor="#FF777777"
+									    bkcolor="#FFFFFFFF">
+							<Button name="btnCloseUseCy"
+								    float="true" pos="151,6,165,20"
+								    normalimage= "btn_title_close.png"
+								    hotimage=    "btn_title_close_over.png"
+								    pushedimage= "btn_title_close_down.png"
+							/>
+							<Label float="true" pos="1,28,169,43"
+								   text="<b><c #31aed8>New!</c><c #222222> 미니홈피 바로가기</c></b>"
+								   font="4"
+								   align="vcenter"
+								   showhtml="true"
+							/>
+							<CheckBox name="chkUseCy"
+									  float="true" pos="35,47,50,62"
+									  selected="false"
+									  normalimage="btn_uncheck_03.png"
+									  selectedimage="btn_check_03.png"
+							/>
+							<Label name="lblUseCy"
+								   float="true" pos="58,47,135,62"
+								   text="다시 보지 않기"
+								   textcolor="#FF9C9C9C"
+								   font="5"
+							/>
+						</VerticalLayout>
+					</HorizontalLayout>
+					<Button name="btnIndicator"
+						    float="true" pos="120,0,37,7"
+						    mouse="false"
+						    width="11" height="7"
+						    normalimage="layer_tail.png"
+					/>
+				</VerticalLayout>
+			</Container>
+			-->
+
+			<!-- snp layer-->
+			<HorizontalLayout name="LayerSNPopup" visible="false" float="true" pos="1,81,0,0" bkcolor="#99000000">
+				<Control name="LayerSNPopup_l" width="*" />
+				<VerticalLayout name="LayerSNPopup_m" width="280">
+					<Control name="LayerSNPopup_mt" height="*" />
+					<VerticalLayout name="LayerSNPopup_mm" height="310" bkcolor="#99000000">
+						<Button name="snpopupclosebtn" float="true" pos="255,8,0,0" width="17" height="17" />
+						<Button name="snpopuplinkbtn" float="true" pos="84,255,0,0" width="110" height="33" />
+					</VerticalLayout>
+					<Control name="LayerSNPopup_mb" height="*" />
+				</VerticalLayout>
+				<Control name="LayerSNPopup_r" width="*" />
+			</HorizontalLayout>
+
+		</VerticalLayout>
+	</HorizontalLayout>
+
+</Window>

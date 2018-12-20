@@ -1,0 +1,4 @@
+wmi
+pystray
+win32gui
+pypiwin32
