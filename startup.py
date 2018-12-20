@@ -248,7 +248,7 @@ def stop():
     os.kill(pid, signal.SIGINT)
 
 
-trayicon = Image.open('icon.png')
+trayicon = Image.open(os.path.join('assets', 'icon.png'))
 icon = pystray.Icon('STARTUP', trayicon, 'STARTUP')
 icon.menu = pystray.Menu(
     pystray.MenuItem('STARTUP 0.0.1', lambda item: None),
