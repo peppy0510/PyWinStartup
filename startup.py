@@ -7,11 +7,13 @@ email: peppy0510@hotmail.com
 '''
 
 
+import atexit
 import operator
 import os
 import psutil
 import pystray
 import signal
+import sys
 import time
 import win32api
 import win32con
@@ -50,7 +52,6 @@ POPUP_PRESET = [{
 }, {
     'target': {
         'pname': 'uTorrent.exe',
-        'title': 'μTorrentPro'
     }, 'action': 'hide'
 }]
 
@@ -103,25 +104,29 @@ class ProcInformation():
     def __init__(self, proc):
         self.pid = proc.pid
         self.pname = proc.name()
+        self.terminate = proc.terminate
 
     def kill(self):
         try:
-            os.kill(self.pid, signal.SIGINT)
+            self.terminate()
+            # os.kill(self.pid, signal.SIGINT)
         except Exception:
             pass
 
 
 class StartUpManager():
 
-    def __init__(self):
+    def __init__(self, parent):
+        self.parent = parent
         self.interval = 0.5
-        self.maxuptime = 30
+        self.maxuptime = 15
         self.windows = []
+        self.stopsignal = False
         self.is_nateon_patched = False
         self.startuptime = time.time()
 
     @property
-    def is_finished(self):
+    def jobfinished(self):
         if not self.is_nateon_patched:
             return False
         for preset in POPUP_PRESET:
@@ -196,7 +201,7 @@ class StartUpManager():
             if proc.name() not in excludes:
                 procs += [ProcInformation(proc)]
         procs = sorted(procs, key=operator.attrgetter('pname'))
-        if True:
+        if False:
             if not hasattr(self, '__procs_logged__') or not self.__procs_logged__:
                 self.__procs_logged__ = True
                 print('-' * 160)
@@ -205,63 +210,82 @@ class StartUpManager():
                 print('-' * 160)
         return procs
 
-    def handle_existing_instances(self):
-        pid = os.getpid()
-        cwd = os.path.split(__file__)[0]
-        processes = []
-        for p in psutil.process_iter():
-            try:
-                p.cwd()
-            except Exception:
-                continue
-            processes += [{'pid': p.pid, 'cwd': p.cwd(), 'name': p.name()}]
-        processes = sorted(processes, key=operator.itemgetter('cwd'))
+    def stop(self, event=None):
+        self.stopsignal = True
 
-        if False:
-            print('-' * 120)
-            for p in processes:
-                print(str(p['pid']).rjust(6), p['cwd'].ljust(64), p['name'].ljust(6))
-            print('-' * 120)
-            print(str(pid).rjust(6))
-            print('-' * 120)
-
-        for p in processes:
-            if p['pid'] != pid and p['cwd'] == cwd and p['name'] in ('python.exe', 'pythonw.exe',):
-                os.kill(p['pid'], signal.SIGINT)
-
-    def run(self):
-        self.handle_existing_instances()
-        while not self.is_finished and time.time() - self.startuptime < self.maxuptime:
-            time.sleep(self.interval)
+    def run(self, event=None):
+        while time.time() - self.startuptime < self.maxuptime:
+            if self.stopsignal:
+                return
+            if self.jobfinished:
+                break
             self.procs = self.get_proc_informations()
             self.windows = self.get_window_informations()
             self.kill_proc_handler()
             self.close_popup_handler()
             self.nateon_patch_handler()
-        stop()
+            time.sleep(self.interval)
+        self.parent.stop()
 
 
-def stop():
-    icon.visible = False
-    icon.stop()
-    pid = os.getpid()
-    os.kill(pid, signal.SIGINT)
+class TrayIcon(pystray.Icon):
+
+    def __init__(self, name='STARTUP'):
+        super(self.__class__, self).__init__(name)
+        self.title = name
+        self.pid = os.getpid()
+        self.cwd = os.path.split(__file__)[0]
+        self.handle_existing_instances()
+        self.icon = Image.open(os.path.join('assets', 'icon.png'))
+        self.menu = pystray.Menu(
+            pystray.MenuItem('STARTUP 0.0.1', lambda item: None),
+            pystray.MenuItem('author: Taehong Kim', lambda item: None),
+            pystray.MenuItem('email: peppy0510@hotmail.com', lambda item: None),
+            pystray.MenuItem('Quit STARTUP', self.stop, checked=lambda item: True),
+        )
+        self.visible = True
+        self.run()
+
+    def run(self):
+        self.startup_manager = StartUpManager(self)
+        super(self.__class__, self).run(self.startup_manager.run)
+
+    # def stop(self, *argvs):
+    #     super(self.__class__, self).stop()
+    #     # self.startup_manager.stop()
+    #     # if len(argvs):
+    #     #     self.startup_manager.stop()
+    #     #     self = argvs[0]
+    #     # print('xxxxxxxxxx')
+    #     # self.visible = False
+    #     # self._update_icon()
+    #     # super(self.__class__, self).stop()
+    #     # os.kill(self.pid, signal.SIGTERM)
+
+    def stop(self, *argvs):
+        self.startup_manager.stop()
+        self.visible = False
+        self._update_icon()
+        os.kill(self.pid, signal.SIGTERM)
+        super(self.__class__, self).stop()
+
+    def handle_existing_instances(self):
+        for p in psutil.process_iter():
+            try:
+                p.cwd()
+            except Exception:
+                continue
+            if p.pid != self.pid and p.cwd() == self.cwd and p.name() in ('python.exe', 'pythonw.exe',):
+                p.terminate()
 
 
-trayicon = Image.open(os.path.join('assets', 'icon.png'))
-icon = pystray.Icon('STARTUP', trayicon, 'STARTUP')
-icon.menu = pystray.Menu(
-    pystray.MenuItem('STARTUP 0.0.1', lambda item: None),
-    pystray.MenuItem('author: Taehong Kim', lambda item: None),
-    pystray.MenuItem('email: peppy0510@hotmail.com', lambda item: None),
-    pystray.MenuItem('Quit STARTMAN', stop, checked=lambda item: True),
-)
-icon.visible = True
+def old(*args):
+    print('old')  # XXX this never gets printed
 
 
-def startup_manager(event):
-    manager = StartUpManager()
-    manager.run()
+def xxx(*args):
+    print('--------')  # XXX this never gets printed
+    time.sleep(0.1)
 
 
 def main():
@@ -273,9 +297,10 @@ def main():
     NORMAL_PRIORITY_CLASS
     REALTIME_PRIORITY_CLASS
     '''
-    p = psutil.Process(os.getpid())
-    p.nice(psutil.HIGH_PRIORITY_CLASS)
-    icon.run(startup_manager)
+    # p = psutil.Process(os.getpid())
+    # p.nice(psutil.IDLE_PRIORITY_CLASS)
+    trayicon = TrayIcon()
+    atexit.register(trayicon.stop)
 
 
 if __name__ == '__main__':
