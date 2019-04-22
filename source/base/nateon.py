@@ -70,7 +70,7 @@ class NateOn():
             self.patch()
         else:
             command = 'powershell.exe Start-Process python nateon.py -Verb runAs'
-            proc = subprocess.Popen(command, shell=True)
+            proc = subprocess.call(command, shell=True)
             proc.communicate()
 
 
