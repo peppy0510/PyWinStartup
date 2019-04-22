@@ -7,11 +7,9 @@ email: peppy0510@hotmail.com
 '''
 
 
-import ctypes
 import operator
 import os
 import psutil
-import sys
 import time
 import win32api
 import win32con
@@ -19,65 +17,8 @@ import win32gui
 import win32process
 import wx
 
-from nateon import NateOn
+from .nateon import NateOn
 from presets import PRESETS
-from win32com.client import Dispatch
-
-
-def is_admin():
-    try:
-        return ctypes.windll.shell32.IsUserAnAdmin()
-    except Exception:
-        return False
-
-
-def kill_existing_instances():
-    pid = int(os.getpid())
-    cwd = os.path.split(__file__)[0]
-    for p in psutil.process_iter():
-        try:
-            p.cwd()
-        except Exception:
-            continue
-        if p.pid != pid and p.cwd() == cwd and p.name().lower() in ('python.exe', 'pythonw.exe',):
-            # only SIGTERM, CTRL_C_EVENT, CTRL_BREAK_EVENT signals on Windows Platform.
-            # p.send_signal(signal.SIGTERM)
-            p.terminate()
-
-
-def run_as_admin(callback, file, try_run_as_admin=True):
-    if try_run_as_admin is False or is_admin():
-        callback()
-    else:
-        # Rerun with admin rights
-        ctypes.windll.shell32.ShellExecuteW(None, 'runas', sys.executable, file, None, 1)
-
-
-def create_shortcut(path, target_path='', arguments='', working_directory='', icon=''):
-    ext = os.path.splitext(path)[-1][1:].lower()
-    if ext == 'url':
-        with open(path, 'w') as file:
-            file.write('[InternetShortcut]\nURL=%s' % target_path)
-    else:
-        shell = Dispatch('WScript.Shell')
-
-        shortcut = shell.CreateShortCut(
-            path if path.endswith('.lnk') else '.'.join([path, 'lnk']))
-        # shortcut.WindowStyle = 1
-        shortcut.Arguments = arguments
-        shortcut.Targetpath = target_path
-        shortcut.WorkingDirectory = working_directory
-        if icon:
-            shortcut.IconLocation = icon
-        shortcut.save()
-    print('[ SHORTCUT CREATED ] [ %s ]' % path)
-
-
-def create_desktop_ini(directory, icon_resource, folder_type='Generic'):
-    with open(os.path.join(directory, 'desktop.ini'), 'w') as file:
-        file.write('\n'.join([
-            '[.ShellClassInfo]', 'IconResource=%s,0' % icon_resource,
-            '[ViewState]', 'Mode=', 'Vid=', 'FolderType=%s' % folder_type]))
 
 
 class WindowInformation():

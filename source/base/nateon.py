@@ -11,13 +11,24 @@ import ctypes
 import os
 import shutil
 import subprocess
+import sys
+
+from .wininstance import get_current_real_cwq
 
 
 class NateOn():
 
-    source_root = 'NATEON\\Skins\\NateRes'
-    target_root = 'C:\\Program Files (x86)\\SK Communications\\NATEON\\Skins\\NateRes'
+    source_root = os.path.join('assets', 'nateon', 'NATEON', 'Skins', 'NateRes')
+    target_root = os.path.join('C:\\Program Files (x86)', 'SK Communications', 'NATEON', 'Skins', 'NateRes')
+
     names = ('main_view.xml', 'MessageView.xml')
+
+    def __init__(self):
+        if hasattr(sys, '_MEIPASS'):
+            self.source_root = os.path.join(sys._MEIPASS, self.source_root)
+        else:
+            cwd = os.path.dirname(get_current_real_cwq())
+            self.source_root = os.path.join(cwd, self.source_root)
 
     def get_source_path(self, name):
         return os.path.join(self.source_root, name)
