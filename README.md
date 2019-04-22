@@ -1,7 +1,8 @@
 ## Features
 
-* kill or hide unwanted processors.
+* Kill or hide unwanted processors.
 * Works as a taskbar tray icon.
+* Run on Windows startup.
 * Built-in Preset has following features.
 * Removes NateOn messenger AD.
 * Hide NateOn messenger startup popup window.
