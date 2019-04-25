@@ -2,7 +2,7 @@
 
 
 __appname__ = 'PyWinStartup'
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 __author__ = 'Taehong Kim'
 __email__ = 'peppy0510@hotmail.com'
 __license__ = ''

@@ -29,3 +29,8 @@
 * Mac OSX support.
 * Preset editor, and JSON support.
 * Bypass UAC confirmation when execute as administrator mode.
+
+## Reference
+
+* [NateOn 광고제거](https://github.com/fm3647/nateon-no-ad)
+* [KakaoTalk 광고제거](https://github.com/horyu1234/KakaoTalkNoAdv/releases)

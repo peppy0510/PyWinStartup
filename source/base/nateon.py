@@ -13,13 +13,17 @@ import shutil
 import subprocess
 import sys
 
-from .wininstance import get_current_real_cwq
+try:
+    from .wininstance import get_current_real_cwq
+except Exception:
+    from wininstance import get_current_real_cwq
 
 
 class NateOn():
 
     source_root = os.path.join('assets', 'nateon', 'NATEON', 'Skins', 'NateRes')
     target_root = os.path.join('C:\\Program Files (x86)', 'SK Communications', 'NATEON', 'Skins', 'NateRes')
+    hosts_path = 'C:\\Windows\\System32\\drivers\\etc\\hosts'
 
     names = ('main_view.xml', 'MessageView.xml')
 
@@ -27,7 +31,7 @@ class NateOn():
         if hasattr(sys, '_MEIPASS'):
             self.source_root = os.path.join(sys._MEIPASS, self.source_root)
         else:
-            cwd = os.path.dirname(get_current_real_cwq())
+            cwd = os.path.dirname(os.path.dirname(get_current_real_cwq()))
             self.source_root = os.path.join(cwd, self.source_root)
 
     def get_source_path(self, name):
@@ -51,6 +55,8 @@ class NateOn():
             return file.read()
 
     def is_patched(self):
+        if self.get_unpatched_hosts():
+            return False
         for name in self.names:
             if not self.has_backup(name):
                 return False
@@ -59,19 +65,43 @@ class NateOn():
         return True
 
     def patch(self):
+        self.patch_hosts()
         for name in self.names:
             if not self.has_backup(name):
                 shutil.copyfile(self.get_target_path(name), self.get_backup_path(name))
             if self.get_target(name) != self.get_source(name):
                 shutil.copyfile(self.get_source_path(name), self.get_target_path(name))
 
+    def patch_hosts(self):
+
+        hosts = self.get_unpatched_hosts()
+        with open(self.hosts_path, 'a') as file:
+            for host in hosts:
+                file.write('127.0.0.1 {}  # NateOn-AD-Block\n'.format(host))
+
+    def get_unpatched_hosts(self):
+        hosts = [
+            'cyad.nate.com', 'cyad1.nate.com', 'nateonevent.nate.com',
+            'nateon.nate.com', 'nokw.nate.com', 'shop.nate.com',
+            '203.226.255.7', '203.226.255.11', '211.234.239.59']
+        path = 'C:\\Windows\\System32\\drivers\\etc\\hosts'
+        with open(path, 'r') as file:
+            content = file.read()
+            for line in content.split('\n'):
+                words = [v.strip('\n\r\t ') for v in line.strip('\n\r\t ').split(' ')]
+                words = [v for v in words if v]
+                for i in range(len(hosts) - 1, -1, -1):
+                    if hosts[i] in words:
+                        hosts.pop(i)
+                        continue
+        return hosts
+
     def run_patch(self):
         if ctypes.windll.shell32.IsUserAnAdmin():
             self.patch()
         else:
             command = 'powershell.exe Start-Process python nateon.py -Verb runAs'
-            proc = subprocess.call(command, shell=True)
-            proc.communicate()
+            subprocess.call(command, shell=True)
 
 
 '''
