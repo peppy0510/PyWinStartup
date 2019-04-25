@@ -19,6 +19,7 @@ from base import ShortCut
 from base import StartUpWatcher
 from base import get_current_real_cwq
 from base import get_screens
+from base import is_admin
 from base import kill_existing_instances
 from base import run_as_admin
 
@@ -207,5 +208,14 @@ def main():
 
 if __name__ == '__main__':
     kill_existing_instances()
-    main()
-    # run_as_admin(main, __file__)
+
+    if 'runasadmin' in sys.argv[1:] and not is_admin():
+        if hasattr(sys, '_MEIPASS'):
+            cwd = get_current_real_cwq()
+            name = os.path.basename(cwd)
+            path = os.path.join(cwd, '{}.exe'.format(name))
+        else:
+            path = __file__
+        run_as_admin(main, path)
+    else:
+        main()

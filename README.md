@@ -4,7 +4,7 @@
 * Works as a taskbar tray icon.
 * Run on Windows startup.
 * Built-in Preset has following features.
-* Removes NateOn messenger AD. Manipulate installed NateOn files. Therefore, run as administrator mode may be required.
+* Removes NateOn messenger AD. Manipulate installed NateOn and Windows hosts files. Therefore, administrator priviledge will be asked automatically.
 * Hide NateOn messenger startup popup window.
 * Hide Kakaotalk messenger startup popup window.
 * Hide LineWorks messenger startup popup window.

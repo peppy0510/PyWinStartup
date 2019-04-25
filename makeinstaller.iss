@@ -2,19 +2,19 @@
 
 [Setup]
 AppName="PyWinStartup"
-AppVerName="PyWinStartup 0.1.1"
+AppVerName="PyWinStartup 0.1.2"
 DefaultDirName="{pf}\PyWinStartup"
 DefaultGroupName="PyWinStartup"
-AppVersion="0.1.1"
+AppVersion="0.1.2"
 AppCopyright="Taehong Kim"
 AppPublisher="Taehong Kim"
 UninstallDisplayIcon="{app}\PyWinStartup.exe"
 Compression=lzma2/max
 SolidCompression=yes
 OutputDir="dist"
-OutputBaseFilename="PyWinStartup-0.1.1-Setup"
-; VersionInfoVersion="0.1.1"
-VersionInfoProductVersion="0.1.1"
+OutputBaseFilename="PyWinStartup-0.1.2-Setup"
+; VersionInfoVersion="0.1.2"
+VersionInfoProductVersion="0.1.2"
 VersionInfoCompany="Taehong Kim"
 VersionInfoCopyright="Taehong Kim"
 ArchitecturesInstallIn64BitMode="x64"

@@ -14,8 +14,12 @@ import subprocess
 import sys
 
 try:
+    from .winuac import is_admin
+    from .winuac import run_as_admin
     from .wininstance import get_current_real_cwq
 except Exception:
+    from winuac import is_admin
+    from winuac import run_as_admin
     from wininstance import get_current_real_cwq
 
 
@@ -76,6 +80,7 @@ class NateOn():
 
         hosts = self.get_unpatched_hosts()
         with open(self.hosts_path, 'a') as file:
+            file.write('\n')
             for host in hosts:
                 file.write('127.0.0.1 {}  # NateOn-AD-Block\n'.format(host))
 
@@ -100,13 +105,20 @@ class NateOn():
         if ctypes.windll.shell32.IsUserAnAdmin():
             self.patch()
         else:
-            command = 'powershell.exe Start-Process python nateon.py -Verb runAs'
+            if hasattr(sys, '_MEIPASS'):
+                cwd = get_current_real_cwq()
+                name = os.path.basename(cwd)
+                path = os.path.join(cwd, '{}.exe'.format(name))
+                # command = 'powershell.exe Start-Process -FilePath "{}" -Verb runAs'.format(path)
+                command = '"{}" runasadmin'.format(path)
+            else:
+                command = 'powershell.exe Start-Process python nateon.py -Verb runAs'
             subprocess.call(command, shell=True)
 
-
-'''
-powershell.exe Start-Process python startmanager.py -Verb runAs
-'''
+            '''
+            powershell.exe Start-Process -FilePath "C:\Program Files\PyWinStartup\PyWinStartup.exe" -Verb runAs
+            powershell.exe Start-Process "C:\Program Files\PyWinStartup\PyWinStartup.exe" -Verb runAs
+            '''
 
 
 if __name__ == '__main__':
