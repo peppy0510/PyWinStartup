@@ -35,7 +35,8 @@ class NateOn():
         if hasattr(sys, '_MEIPASS'):
             self.source_root = os.path.join(sys._MEIPASS, self.source_root)
         else:
-            cwd = os.path.dirname(os.path.dirname(get_current_real_cwq()))
+            # cwd = os.path.dirname(os.path.dirname(get_current_real_cwq()))
+            cwd = os.path.dirname(get_current_real_cwq())
             self.source_root = os.path.join(cwd, self.source_root)
 
     def get_source_path(self, name):

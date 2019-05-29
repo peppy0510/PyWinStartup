@@ -29,6 +29,10 @@ PRESETS = [
         'title': '네이트온 안내',
         'action': 'hide'
     }, {
+        'pname': 'NateOnMain.exe',
+        'title': '보안 경고',
+        'action': 'hide'
+    }, {
         'pname': 'uTorrent.exe',
         'action': 'hide'
     }, {
