@@ -52,6 +52,7 @@ path = Path(
     dlls=os.path.join('assets', 'dlls'),
     icon=os.path.join('assets', 'icon', 'icon.ico'),
     nateon=os.path.join('assets', 'nateon'),
+    kakaotalk=os.path.join('assets', 'kakaotalk'),
     output=os.path.join('build', '{}.exe'.format(__appname__)),
     winsxs=__api_ms_win_crt_path__,
 )
@@ -64,6 +65,7 @@ a = Analysis([os.path.join('source', 'main.pyw')],
 
 
 a.datas += grapdatas(path.assets, 'icon', 2, 'data', ['icon.ico'])
+a.datas += grapdatas(path.assets, 'kakaotalk', 2, 'data', ['KakaoTalkNoAdv.v1.1.0.exe'])
 a.datas += grapdatas(path.assets, os.path.join(
     'nateon', 'NATEON', 'Skins', 'NateRes'), 5, 'data', ['main_view.xml', 'MessageView.xml'])
 

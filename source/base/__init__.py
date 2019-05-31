@@ -8,6 +8,7 @@ email: peppy0510@hotmail.com
 
 
 from .nateon import *  # noqa
+from .kakaotalk import *  # noqa
 from .screens import *  # noqa
 from .shorcut import *  # noqa
 from .startupwatcher import *  # noqa

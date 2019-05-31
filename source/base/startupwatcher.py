@@ -17,6 +17,7 @@ import win32gui
 import win32process
 import wx
 
+from .kakaotalk import KakaoTalk
 from .nateon import NateOn
 from presets import PRESETS
 
@@ -79,7 +80,13 @@ class StartUpWatcher(wx.Timer):
         self.interval = 1000
         self.maxuptime = 15
         self.nateon_patched = False
+        self.kakaotalk_patched = False
         self.Start(self.interval)
+        self.kakaotalk = KakaoTalk()
+
+    def patch_kakaotalk(self):
+        if not self.kakaotalk.patched:
+            self.kakaotalk.run_patch()
 
     def patch_nateon(self):
         nateon = NateOn()
@@ -158,5 +165,7 @@ class StartUpWatcher(wx.Timer):
             elif action == 'kill':
                 self.pop_preset(window)
                 window.kill()
+            if window.pname == 'KakaoTalk.exe':
+                self.patch_kakaotalk()
 
         self.patch_nateon()
