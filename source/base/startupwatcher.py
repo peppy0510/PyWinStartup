@@ -165,7 +165,7 @@ class StartUpWatcher(wx.Timer):
             elif action == 'kill':
                 self.pop_preset(window)
                 window.kill()
-            if window.pname == 'KakaoTalk.exe':
+            if window.pname == 'KakaoTalk.exe' and window.enabled:
                 self.patch_kakaotalk()
 
         self.patch_nateon()

@@ -17,24 +17,27 @@ from base import run_as_admin
 def main():
     # C:\Users\username\AppData\Roaming\Microsoft\Windows\Start Menu
     # C:\Users\username\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
-    shortcut_name = 'startup.py'
-    target_name = 'startup.py'
-    cwd = os.path.dirname(__file__)
+
+    python_path = 'pythonw.exe'
+    shortcut_name = 'PyWinStartup'
+    cwd = os.path.abspath(os.path.dirname(__file__))
+    target_path = os.path.join(cwd, 'main.pyw')
+
+    rootpath = os.path.dirname(cwd)
     home = os.path.expanduser('~')
-    icon = os.path.join(cwd, 'assets', 'icon.ico')
+    icon = os.path.join(rootpath, 'assets', 'icon', 'icon.ico')
     startmenu = os.path.join(home, 'AppData', 'Roaming', 'Microsoft', 'Windows', 'Start Menu')
     startup = os.path.join(startmenu, 'Programs', 'Startup')
-    python = 'pythonw.exe'
 
     create_shortcut(
         os.path.join(startmenu, shortcut_name),
-        python, os.path.join(cwd, target_name), cwd, icon)
+        python_path, target_path, cwd, icon)
 
     create_shortcut(
         os.path.join(startup, shortcut_name),
-        python, os.path.join(cwd, target_name), cwd, icon)
+        python_path, target_path, cwd, icon)
 
-    create_desktop_ini(cwd, icon)
+    create_desktop_ini(os.path.dirname(cwd), icon)
 
 
 if __name__ == '__main__':
