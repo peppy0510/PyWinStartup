@@ -2,7 +2,7 @@
 
 
 '''
-author: Taehong Kim / Jaehoon Jung
+author: Taehong Kim
 email: peppy0510@hotmail.com
 '''
 
