@@ -19,8 +19,10 @@ import wx
 
 from .kakaotalk import KakaoTalk
 from .nateon import NateOn
+from presets import INTERVAL
 from presets import PATCH
 from presets import PRESETS
+from presets import UPTIME
 
 
 class WindowInformation():
@@ -78,8 +80,8 @@ class StartUpWatcher(wx.Timer):
         self.presets = PRESETS
         self.parent = parent
         self.tic = time.time()
-        self.interval = 1000
-        self.maxuptime = 15
+        self.interval = INTERVAL * 1000
+        self.maxuptime = UPTIME
         self.nateon_patched = False
         self.kakaotalk_patched = False
         self.Start(self.interval)

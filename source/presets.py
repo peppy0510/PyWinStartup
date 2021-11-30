@@ -7,7 +7,9 @@ email: peppy0510@hotmail.com
 '''
 
 
-MAXUPTIME = 30
+UPTIME = 30
+
+INTERVAL = 1
 
 PATCH = {
     "NATEON": False,
