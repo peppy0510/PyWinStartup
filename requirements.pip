@@ -1,5 +1,5 @@
-wmi
-pywin32
-win32gui
-wxpython
 pyinstaller
+pywin32
+wmi
+wxpython
+# win32gui
