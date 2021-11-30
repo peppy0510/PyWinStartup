@@ -6,7 +6,8 @@ author: Taehong Kim
 email: peppy0510@hotmail.com
 '''
 
-MAXUPTIME = 15
+
+MAXUPTIME = 30
 
 PATCH = {
     "NATEON": False,
