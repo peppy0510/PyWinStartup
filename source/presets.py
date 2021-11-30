@@ -7,7 +7,7 @@ email: peppy0510@hotmail.com
 '''
 
 
-UPTIME = 30
+UPTIME = 60
 
 INTERVAL = 1
 
@@ -18,6 +18,10 @@ PATCH = {
 
 PRESETS = [
     {
+        'pname': 'Swit.exe',
+        'title': '',
+        'action': 'hide'
+    }, {
         'pname': 'Swit.exe',
         'title': '',
         'action': 'hide'
