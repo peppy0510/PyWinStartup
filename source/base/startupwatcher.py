@@ -19,6 +19,7 @@ import wx
 
 from .kakaotalk import KakaoTalk
 from .nateon import NateOn
+from presets import PATCH
 from presets import PRESETS
 
 
@@ -85,10 +86,14 @@ class StartUpWatcher(wx.Timer):
         self.kakaotalk = KakaoTalk()
 
     def patch_kakaotalk(self):
+        if not PATCH.get('KAKAOTALK'):
+            return
         if not self.kakaotalk.patched:
             self.kakaotalk.run_patch()
 
     def patch_nateon(self):
+        if not PATCH.get('NATEON'):
+            return
         nateon = NateOn()
         if not nateon.is_patched():
             nateon.run_patch()
@@ -134,7 +139,7 @@ class StartUpWatcher(wx.Timer):
             pname = self.presets[i].get('pname')
             title = self.presets[i].get('title')
             if (pname is None or (pname is not None and pname == window.pname)) and\
-                    (title is None or (title is not None and title == window.title)):
+                    (not title or (title and title == window.title)):
                 return self.presets[i].get('action')
 
     def pop_preset(self, window):
@@ -142,7 +147,7 @@ class StartUpWatcher(wx.Timer):
             pname = self.presets[i].get('pname')
             title = self.presets[i].get('title')
             if (pname is None or (pname is not None and pname == window.pname)) and\
-                    (title is None or (title is not None and title == window.title)):
+                    (not title or (title and title == window.title)):
                 return self.presets.pop(i)
 
     def Notify(self):
@@ -152,6 +157,9 @@ class StartUpWatcher(wx.Timer):
             self.parent.OnClose()
 
         for window in self.get_window_informations():
+            # if 'Swit' in window.pname:
+            #     # print(window.pname)
+            #     window.hide()
             action = self.get_preset_action(window)
             if action == 'hide' and window.visible:
                 self.pop_preset(window)

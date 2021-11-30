@@ -2,7 +2,7 @@
 
 
 '''
-author: Taehong Kim / Jaehoon Jung
+author: Taehong Kim
 email: peppy0510@hotmail.com
 '''
 
@@ -16,17 +16,17 @@ import sys
 try:
     from .winuac import is_admin
     from .winuac import run_as_admin
-    from .wininstance import get_current_real_cwq
+    from .wininstance import get_current_real_cwd
 except Exception:
     from winuac import is_admin
     from winuac import run_as_admin
-    from wininstance import get_current_real_cwq
+    from wininstance import get_current_real_cwd
 
 
 class NateOn():
 
-    source_root = os.path.join('assets', 'nateon', 'NATEON', 'Skins', 'NateRes')
-    target_root = os.path.join('C:\\Program Files (x86)', 'SK Communications', 'NATEON', 'Skins', 'NateRes')
+    source_root = 'assets\\nateon\\NATEON\\Skins\\NateRes'
+    target_root = 'C:\\Program Files (x86)\\SK Communications\\NATEON\\Skins\\NateRes'
     hosts_path = 'C:\\Windows\\System32\\drivers\\etc\\hosts'
 
     names = ('main_view.xml', 'MessageView.xml')
@@ -35,8 +35,8 @@ class NateOn():
         if hasattr(sys, '_MEIPASS'):
             self.source_root = os.path.join(sys._MEIPASS, self.source_root)
         else:
-            # cwd = os.path.dirname(os.path.dirname(get_current_real_cwq()))
-            cwd = os.path.dirname(get_current_real_cwq())
+            # cwd = os.path.dirname(os.path.dirname(get_current_real_cwd()))
+            cwd = os.path.dirname(get_current_real_cwd())
             self.source_root = os.path.join(cwd, self.source_root)
 
     def get_source_path(self, name):
@@ -107,7 +107,7 @@ class NateOn():
             self.patch()
         else:
             if hasattr(sys, '_MEIPASS'):
-                cwd = get_current_real_cwq()
+                cwd = get_current_real_cwd()
                 name = os.path.basename(cwd)
                 path = os.path.join(cwd, '{}.exe'.format(name))
                 # command = 'powershell.exe Start-Process -FilePath "{}" -Verb runAs'.format(path)
@@ -116,7 +116,7 @@ class NateOn():
                 command = 'powershell.exe Start-Process python nateon.py -Verb runAs'
             subprocess.call(command, shell=True)
 
-            '''
+            r'''
             powershell.exe Start-Process -FilePath "C:\Program Files\PyWinStartup\PyWinStartup.exe" -Verb runAs
             powershell.exe Start-Process "C:\Program Files\PyWinStartup\PyWinStartup.exe" -Verb runAs
             '''

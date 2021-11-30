@@ -6,9 +6,19 @@ author: Taehong Kim
 email: peppy0510@hotmail.com
 '''
 
+MAXUPTIME = 15
+
+PATCH = {
+    "NATEON": False,
+    "KAKAOTALK": False
+}
 
 PRESETS = [
     {
+        'pname': 'Swit.exe',
+        'title': '',
+        'action': 'hide'
+    }, {
         'pname': 'KakaoTalk.exe',
         'title': '카카오톡',
         'action': 'hide'
@@ -68,7 +78,8 @@ PRESETS = [
     }, {
         'pname': 'SkypeBridge.exe',
         'action': 'kill'
-    }]
+    }
+]
 
 
 # KILLPROC_PRESETS = [{

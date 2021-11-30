@@ -25,9 +25,9 @@ def main():
 
     rootpath = os.path.dirname(cwd)
     home = os.path.expanduser('~')
-    icon = os.path.join(rootpath, 'assets', 'icon', 'icon.ico')
-    startmenu = os.path.join(home, 'AppData', 'Roaming', 'Microsoft', 'Windows', 'Start Menu')
-    startup = os.path.join(startmenu, 'Programs', 'Startup')
+    icon = os.path.join(rootpath, 'assets\\icon\\icon.ico')
+    startmenu = os.path.join(home, 'AppData\\Roaming\\Microsoft\\Windows\\Start Menu')
+    startup = os.path.join(startmenu, 'Programs\\Startup')
 
     create_shortcut(
         os.path.join(startmenu, shortcut_name),
