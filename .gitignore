@@ -7,3 +7,4 @@ dist
 build
 /venv
 desktop.ini
+/settings.json

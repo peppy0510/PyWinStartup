@@ -2,7 +2,7 @@
 
 
 __appname__ = 'PyWinStartup'
-__version__ = '0.1.4'
+__version__ = '0.2.0'
 __author__ = 'Taehong Kim'
 __email__ = 'peppy0510@hotmail.com'
 __license__ = ''
@@ -17,6 +17,7 @@ import wx.adv
 
 from base import ShortCut
 from base import StartUpWatcher
+from base import StartUpProcess
 from base import get_current_real_cwd
 from base import get_screens
 from base import is_admin
@@ -176,9 +177,11 @@ class MainFrame(wx.Frame):
         wx.Frame.__init__(self, parent, id=wx.ID_ANY, size=wx.Size(0, 0))
         self.taskbar = TaskBarIcon(self)
         self.startup_watcher = StartUpWatcher(self)
+        self.startup_process = StartUpProcess(self)
 
     def OnClose(self, event=None):
         self.startup_watcher.Stop()
+        self.startup_process.Stop()
         wx.CallAfter(self.taskbar.Destroy)
         wx.CallAfter(self.Destroy)
 

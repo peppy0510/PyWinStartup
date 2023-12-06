@@ -1,5 +1,6 @@
-wmi
-pypiwin32
-wxpython
 pyinstaller
+pypiwin32
+screeninfo
+wmi
+wxpython
 # win32gui

@@ -77,7 +77,7 @@ class StartUpWatcher(wx.Timer):
 
     def __init__(self, parent):
         super(wx.Timer, self).__init__()
-        self.presets = PRESETS
+        self.presets = [v for v in PRESETS if v.get('action') in ('hide', 'kill',)]
         self.parent = parent
         self.tic = time.time()
         self.interval = INTERVAL * 1000
@@ -153,7 +153,7 @@ class StartUpWatcher(wx.Timer):
                 return self.presets.pop(i)
 
     def Notify(self):
-        print(time.time() - self.tic)
+        # print(f'{time.time() - self.tic:07.03f}')
         if len(self.presets) == 0 or time.time() - self.tic > self.maxuptime:
             self.Stop()
             self.parent.OnClose()

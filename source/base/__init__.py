@@ -11,6 +11,7 @@ from .nateon import *  # noqa
 from .kakaotalk import *  # noqa
 from .screens import *  # noqa
 from .shortcut import *  # noqa
+from .startupprocess import *  # noqa
 from .startupwatcher import *  # noqa
 from .wininstance import *  # noqa
 from .winuac import *  # noqa
