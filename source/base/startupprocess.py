@@ -10,6 +10,7 @@ email: peppy0510@hotmail.com
 import operator
 import os
 import psutil
+import re
 import shlex
 import subprocess
 import time
@@ -20,6 +21,7 @@ import win32process
 import wx
 
 from .startupwatcher import StartUpWatcher
+from operator import itemgetter
 from pathlib import Path
 from presets import INTERVAL
 from presets import PRESETS
@@ -53,29 +55,53 @@ class StartUpProcess(wx.Timer):
                 cmdline = proc.cmdline()
                 if len(cmdline) > 2 and cmdline[1] == 'PackagedDataInfo:':
                     cmdline = cmdline[2:]
+                if 'WindowsApps\\Microsoft.WindowsTerminal' in cmdline[0]:
+                    cmdline[0] = 'WindowsApps\\Microsoft.WindowsTerminal'
                 self.procs += [dict(
-                    pid=proc.pid,
-                    cwd=proc.cwd(), name=proc.name(), cmdline=cmdline,
+                    pid=proc.pid, cwd=proc.cwd(),
+                    name=proc.name(), cmdline=cmdline,
                 )]
             except Exception:
                 pass
 
-    def get_pid(self, cmd, renew=False):
+    def get_pid(self, cmd, cwd=None, renew=False):
+        cmd = shlex.split(cmd)
+
+        for i in range(len(cmd)):
+            cmd[i] = cmd[i].strip('"')
+
+        if 'WindowsApps\\Microsoft.WindowsTerminal' in cmd[0]:
+            cmd[0] = 'WindowsApps\\Microsoft.WindowsTerminal'
+
         if not renew:
             for v in self.procs:
                 if v.get('cmdline') == cmd:
                     return v.get('pid')
+                # if 'WindowsApps\\Microsoft.WindowsTerminalPreview' in v.get('cmdline'):
+                #     cmdline[0] = 'WindowsApps\\Microsoft.WindowsTerminalPreview'
             return
 
+        pid_procs = []
         for proc in psutil.process_iter():
             try:
                 cmdline = proc.cmdline()
+                # print('cmdline', cmdline)
                 if len(cmdline) > 2 and cmdline[1] == 'PackagedDataInfo:':
                     cmdline = cmdline[2:]
+                if 'WindowsApps\\Microsoft.WindowsTerminal' in cmdline[0]:
+                    cmdline[0] = 'WindowsApps\\Microsoft.WindowsTerminal'
                 if cmdline == cmd:
                     return proc.pid
+                pid_procs += [dict(pid=proc.pid, cmdline=cmdline)]
             except Exception:
                 pass
+
+        if 'WindowsApps\\Microsoft.WindowsTerminal' in cmd[0]:
+            _pid_procs = [v for v in pid_procs if (
+                'WindowsApps\\Microsoft.WindowsTerminal') in v.get('cmdline')[0]]
+            _pid_procs = sorted(_pid_procs, key=itemgetter('pid'))
+            # print(_pid_procs[-2].get('cmdline'))
+            # return _pid_procs[-2].get('pid') if _pid_procs else None
 
     # def get_windows(self):
     #     windows = []
@@ -157,15 +183,34 @@ class StartUpProcess(wx.Timer):
 
         if not cmd:
             return
-        if isinstance(cmd, str):
-            cmd = shlex.split(cmd)
-        pid = self.get_pid(cmd)
+
+        # if isinstance(cmd, list):
+        #     cmd = shlex.join(cmd)
+        # if isinstance(cmd, str):
+        #     cmd = shlex.split(cmd)
+        # cmd = list(shlex.shlex(cmd, posix=False, punctuation_chars=False))
+
+        cwd = preset.get('cwd') or str(Path(cmd[0]).parent)
+        for i in range(len(cmd)):
+            if not re.match(r'^[a-zA-Z]:\\.*', cmd[i]):
+                continue
+            if Path(cmd[i]).exists():
+                cmd[i] = str(Path(cmd[i]))
+                if ' ' in cmd[i]:
+                    cmd[i] = f'"{cmd[i]}"'
+
+        cmdline = ' '.join(cmd)
+        pid = self.get_pid(cmdline, cwd=cwd)
+
         if pid:
-            print('[popen already exists]', pid, shlex.join(cmd))
+            print('[popen already exists]', pid, cmdline)
         else:
-            cwd = preset.get('cwd') or None
-            subprocess.Popen(*cmd, cwd=cwd, close_fds=True, start_new_session=True)
-            pid = self.get_pid(cmd, True)
-            print('[popen start]', pid, shlex.join(cmd))
-        # if pos:
-        #     self.set_position(pid, *pos)
+            subprocess.Popen(cmdline, cwd=cwd, close_fds=True,
+                             start_new_session=True, shell=True)
+
+            # print(dir(proc.pid))
+            pid = self.get_pid(cmdline, cwd=cwd, renew=True)
+            print('[popen start]', pid, cmdline)
+            # print('[popen start]', pid, shlex.join(cmd))
+        if pid and pos:
+            self.set_position(pid, *pos)
