@@ -9,20 +9,23 @@ email: peppy0510@hotmail.com
 
 import json
 
+from base.dictionary import load_commented_json
 from pathlib import Path
 
 root = Path(__name__).resolve().parent
 user_path = Path(f'{root}/settings.json')
 default_path = Path(f'{root}/source/settings.json')
 
-with open(default_path, 'rb') as file:
-    default = json.loads(file.read().decode('utf-8'))
+# with open(default_path, 'rb') as file:
+#     default = json.loads(file.read().decode('utf-8'))
+
+default = load_commented_json(default_path)
 
 user = {}
 if user_path.exists():
-    with open(user_path, 'rb') as file:
-        user = json.loads(file.read().decode('utf-8'))
-
+    # with open(user_path, 'rb') as file:
+    #     user = json.loads(file.read().decode('utf-8'))
+    user = load_commented_json(user_path)
 
 UPTIME = user.get('UPTIME', default.get('UPTIME'))
 INTERVAL = user.get('INTERVAL', default.get('INTERVAL'))
