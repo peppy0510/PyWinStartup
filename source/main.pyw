@@ -180,6 +180,7 @@ class MainFrame(wx.Frame):
         self.startup_process = StartUpProcess(self)
 
     def OnClose(self, event=None):
+        # self.startup_watcher.patch_powershell()
         self.startup_watcher.Stop()
         self.startup_process.Stop()
         wx.CallAfter(self.taskbar.Destroy)

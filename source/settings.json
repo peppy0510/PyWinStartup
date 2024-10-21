@@ -3,7 +3,8 @@
     "INTERVAL": 1,
     "PATCH": {
         "NATEON": false,
-        "KAKAOTALK": false
+        "KAKAOTALK": false,
+        "POWERSHELL": false
     },
     "PRESETS": [
         {

@@ -19,6 +19,7 @@ import wx
 
 from .kakaotalk import KakaoTalk
 from .nateon import NateOn
+from .powershell import PowerShell
 from presets import INTERVAL
 from presets import PATCH
 from presets import PRESETS
@@ -47,10 +48,13 @@ class WindowInformation():
             except Exception:
                 pass
             # print(self.pname)
-        # PROCESS_QUERY_INFORMATION (0x0400) or PROCESS_VM_READ (0x0010) or PROCESS_ALL_ACCESS (0x1F0FFF)
+        # (PROCESS_QUERY_INFORMATION(0x0400) or
+        #     PROCESS_VM_READ(0x0010) or PROCESS_ALL_ACCESS(0x1F0FFF))
         try:
-            process = win32api.OpenProcess(win32con.PROCESS_QUERY_INFORMATION, False, self.pid)
-            self.pname = win32process.GetModuleFileNameEx(process, 0).split(os.path.sep)[-1]
+            process = win32api.OpenProcess(
+                win32con.PROCESS_QUERY_INFORMATION, False, self.pid)
+            self.pname = win32process.GetModuleFileNameEx(
+                process, 0).split(os.path.sep)[-1]
         except Exception:
             self.pname = ''
 
@@ -84,8 +88,10 @@ class StartUpWatcher(wx.Timer):
         self.maxuptime = UPTIME
         self.nateon_patched = False
         self.kakaotalk_patched = False
+        self.powershell_patched = False
         self.Start(self.interval)
         self.kakaotalk = KakaoTalk()
+        self.powershell = PowerShell()
 
     def patch_kakaotalk(self):
         if not PATCH.get('KAKAOTALK'):
@@ -100,6 +106,12 @@ class StartUpWatcher(wx.Timer):
         if not nateon.is_patched():
             nateon.run_patch()
         self.nateon_patched = True
+
+    def patch_powershell(self):
+        if not PATCH.get('POWERSHELL'):
+            return
+        if not self.powershell.patched:
+            self.powershell.run_patch()
 
     def get_window_informations(self):
 
@@ -131,8 +143,11 @@ class StartUpWatcher(wx.Timer):
                 self.__windows_logged__ = True
                 print('-' * 160)
                 for window in windows:
-                    print(str(window.pid).rjust(6), str(window.hwnd).rjust(8), str(window.parent).rjust(8),
-                          window.visible, window.enabled, window.pname.ljust(24), window.title[:100])
+                    print(str(window.pid).rjust(6),
+                          str(window.hwnd).rjust(8),
+                          str(window.parent).rjust(8),
+                          window.visible, window.enabled,
+                          window.pname.ljust(24), window.title[:100])
                 print('-' * 160)
         return windows
 
@@ -153,6 +168,7 @@ class StartUpWatcher(wx.Timer):
                 return self.presets.pop(i)
 
     def Notify(self):
+        self.patch_powershell()
         # print(f'{time.time() - self.tic:07.03f}')
         if len(self.presets) == 0 or time.time() - self.tic > self.maxuptime:
             self.Stop()
