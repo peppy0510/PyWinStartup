@@ -18,6 +18,10 @@
             "action": "hide"
         },
         {
+            "pname": "v3lite4.exe",
+            "action": "hide"
+        },
+        {
             "pname": "KakaoTalk.exe",
             "title": "카카오톡",
             "action": "hide"
