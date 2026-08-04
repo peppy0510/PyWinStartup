@@ -8,3 +8,6 @@ build
 /venv
 desktop.ini
 /settings.json
+
+# AI assistant notes — keep local, do not publish
+/CLAUDE.md
