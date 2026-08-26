@@ -5,6 +5,6 @@
 *.pyo
 dist
 build
-/venv
+/.venv
 desktop.ini
 /settings.json
