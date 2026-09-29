@@ -8,3 +8,6 @@ build
 /.venv
 desktop.ini
 /settings.json
+.sublime-workspace
+*.sublime-workspace
+*.sublime-project
