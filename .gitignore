@@ -8,6 +8,9 @@ build
 /.venv
 desktop.ini
 /settings.json
+.sublime-workspace
+*.sublime-workspace
+*.sublime-project
 
 # AI assistant notes — keep local, do not publish
 /CLAUDE.md
