@@ -9,6 +9,7 @@ email: peppy0510@hotmail.com
 
 import glob
 import os
+import sys
 
 
 debug = False
@@ -23,8 +24,8 @@ Analysis = Analysis  # noqa
 
 
 __appname__ = 'PyWinStartup'
-__default_python_path__ = 'C:\\Program Files\\Python36'
-__api_ms_win_crt_path__ = 'C:\\Windows\\WinSxS\\amd64_microsoft-windows-m..namespace-downlevel_31bf3856ad364e35_10.0.17763.1_none_b82ac495d943b9d7'
+__default_python_path__ = os.environ.get('DEFAULT_PYTHON_PATH', sys.prefix)
+__api_ms_win_crt_path__ = os.environ.get('API_MS_WIN_CRT_PATH', '')
 
 
 class Path():
@@ -64,10 +65,10 @@ a = Analysis([os.path.join('source', 'main.pyw')],
              hiddenimports=[])
 
 
-a.datas += grapdatas(path.assets, 'icon', 2, 'data', ['icon.ico'])
-a.datas += grapdatas(path.assets, 'kakaotalk', 2, 'data', ['KakaoTalkNoAdv.v1.1.0.exe'])
+a.datas += grapdatas(path.assets, 'icon', 2, 'DATA', ['icon.ico'])
+a.datas += grapdatas(path.assets, 'kakaotalk', 2, 'DATA', ['KakaoTalkNoAdv.v1.1.0.exe'])
 a.datas += grapdatas(path.assets, os.path.join(
-    'nateon', 'NATEON', 'Skins', 'NateRes'), 5, 'data', ['main_view.xml', 'MessageView.xml'])
+    'nateon', 'NATEON', 'Skins', 'NateRes'), 5, 'DATA', ['main_view.xml', 'MessageView.xml'])
 
 print('-' * 100)
 for v in a.datas:
@@ -79,13 +80,13 @@ pyz = PYZ(a.pure)
 if onefile:
     exe = EXE(pyz, a.scripts + [('O', '', 'OPTION')],
               a.binaries, a.zipfiles, a.datas,
-              uac_admin=True, uac_uiaccess=True,
+              uac_admin=True, uac_uiaccess=False,
               icon=path.icon, name=path.output,
               upx=upx, strip=None, debug=debug, console=debug)
     # runtime_tmpdir='%HOMEPATH%\\AppData\\Local\\Temp\\' + name
 else:
     exe = EXE(pyz, a.scripts, name=path.output, icon=path.icon,
-              uac_admin=True, uac_uiaccess=True, upx=upx, strip=None,
+              uac_admin=True, uac_uiaccess=False, upx=upx, strip=None,
               debug=debug, console=debug, exclude_binaries=1)
     dist = COLLECT(exe, a.binaries, a.zipfiles, a.datas,
                    upx=upx, strip=None, name=__appname__)
