@@ -54,7 +54,7 @@ path = Path(
     icon=os.path.join('assets', 'icon', 'icon.ico'),
     nateon=os.path.join('assets', 'nateon'),
     kakaotalk=os.path.join('assets', 'kakaotalk'),
-    output=os.path.join('build', '{}.exe'.format(__appname__)),
+    output=os.path.join('.build', '{}.exe'.format(__appname__)),
     winsxs=__api_ms_win_crt_path__,
 )
 
