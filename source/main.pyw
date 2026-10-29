@@ -71,13 +71,13 @@ class AboutDialog(wx.Dialog):
             return text
 
         offsetY = 92
-        create_static_text('{}'.format(__appname__), offsetY)
+        create_static_text(__appname__, offsetY)
         offsetY += 20
-        create_static_text('Version: {}'.format(__version__), offsetY)
+        create_static_text(f'Version: {__version__}', offsetY)
         offsetY += 20
-        create_static_text('Author: {}'.format(__author__), offsetY)
+        create_static_text(f'Author: {__author__}', offsetY)
         offsetY += 20
-        create_static_text('Email: {}'.format(__email__), offsetY)
+        create_static_text(f'Email: {__email__}', offsetY)
 
     def OnClose(self, event):
         self.EndModal(True)
@@ -85,7 +85,7 @@ class AboutDialog(wx.Dialog):
 
 class TaskBarIcon(wx.adv.TaskBarIcon):
 
-    tray_tooltip = '{} {}'.format(__appname__, __version__,)
+    tray_tooltip = f'{__appname__} {__version__}'
     tray_icon_path = os.path.join('assets', 'icon', 'icon.ico')
 
     def __init__(self, parent):
@@ -106,8 +106,7 @@ class TaskBarIcon(wx.adv.TaskBarIcon):
         # self.menu.SetTitle('STARTUP %s' % __version__)
         # self.create_menu_item('Author: %s' % __author__)
         # self.create_menu_item('Email: %s' % __email__)
-        self.create_menu_item('About {}'.format(
-            __appname__), self.OnClickAboutMenu)
+        self.create_menu_item(f'About {__appname__}', self.OnClickAboutMenu)
         self.menu.AppendSeparator()
 
         self.run_on_startup = self.create_menu_item(
@@ -148,17 +147,17 @@ class TaskBarIcon(wx.adv.TaskBarIcon):
             self.show_balloon('Run on startup has been disabled.')
         else:
             if hasattr(sys, '_MEIPASS'):
-                working_directory = 'C:\\Program Files\\{}'.format(__appname__)
+                working_directory = f'C:\\Program Files\\{__appname__}'
                 if not os.path.exists(working_directory):
-                    working_directory = 'C:\\Program Files (x86)\\{}'.format(__appname__)
-                target_path = os.path.join(working_directory, '{}.exe'.format(__appname__))
+                    working_directory = f'C:\\Program Files (x86)\\{__appname__}'
+                target_path = os.path.join(working_directory, f'{__appname__}.exe')
                 arguments = ''
                 icon = ''
             else:
                 working_directory = os.path.dirname(get_current_real_cwd())
                 target_path = 'pythonw.exe'
-                arguments = '"{}"'.format(os.path.join(
-                    working_directory, 'source', os.path.basename(__file__)))
+                script = os.path.join(working_directory, 'source', os.path.basename(__file__))
+                arguments = f'"{script}"'
                 icon = os.path.join(working_directory, self.tray_icon_path)
 
             ShortCut.create(
@@ -217,7 +216,7 @@ if __name__ == '__main__':
         if hasattr(sys, '_MEIPASS'):
             cwd = get_current_real_cwd()
             name = os.path.basename(cwd)
-            path = os.path.join(cwd, '{}.exe'.format(name))
+            path = os.path.join(cwd, f'{name}.exe')
         else:
             path = __file__
         run_as_admin(main, path)

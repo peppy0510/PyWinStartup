@@ -83,7 +83,7 @@ class NateOn():
         with open(self.hosts_path, 'a') as file:
             file.write('\n')
             for host in hosts:
-                file.write('127.0.0.1 {}  # NateOn-AD-Block\n'.format(host))
+                file.write(f'127.0.0.1 {host}  # NateOn-AD-Block\n')
 
     def get_unpatched_hosts(self):
         hosts = [
@@ -109,9 +109,9 @@ class NateOn():
             if hasattr(sys, '_MEIPASS'):
                 cwd = get_current_real_cwd()
                 name = os.path.basename(cwd)
-                path = os.path.join(cwd, '{}.exe'.format(name))
+                path = os.path.join(cwd, f'{name}.exe')
                 # command = 'powershell.exe Start-Process -FilePath "{}" -Verb runAs'.format(path)
-                command = '"{}" runasadmin'.format(path)
+                command = f'"{path}" runasadmin'
             else:
                 command = 'powershell.exe Start-Process python nateon.py -Verb runAs'
             subprocess.call(command, shell=True)
