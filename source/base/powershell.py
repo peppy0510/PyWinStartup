@@ -29,7 +29,7 @@ class PowerShell():
             #     'root/.local/share/powershell/PSReadLine/ConsoleHost_history.txt'),
             # Path('//wsl.localhost/Ubuntu-22.04').joinpath(
             #     'root/.local/share/powershell/PSReadLine/ConsoleHost_history.txt'),
-            # Path('//wsl.localhost/Ubuntu-24.04').joinpath(
+            # Path('//wsl.localhost/Ubuntu-26.04').joinpath(
             #     'root/.local/share/powershell/PSReadLine/ConsoleHost_history.txt'),
         ]
         for path in paths:
