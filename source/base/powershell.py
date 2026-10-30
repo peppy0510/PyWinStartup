@@ -25,12 +25,8 @@ class PowerShell():
         paths = [
             Path.home().joinpath('AppData/Roaming').joinpath(
                 'Microsoft/Windows/PowerShell/PSReadLine/ConsoleHost_history.txt'),
-            # Path('//wsl.localhost/Ubuntu-20.04').joinpath(
-            #     'root/.local/share/powershell/PSReadLine/ConsoleHost_history.txt'),
-            # Path('//wsl.localhost/Ubuntu-22.04').joinpath(
-            #     'root/.local/share/powershell/PSReadLine/ConsoleHost_history.txt'),
-            # Path('//wsl.localhost/Ubuntu-26.04').joinpath(
-            #     'root/.local/share/powershell/PSReadLine/ConsoleHost_history.txt'),
+            # WSL's: //wsl.localhost/<the default distro, HKCU Lxss>/<its home>/
+            #     .local/share/powershell/PSReadLine/ConsoleHost_history.txt
         ]
         for path in paths:
             if not path.exists():
