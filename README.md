@@ -22,7 +22,6 @@
 ## Supported platforms
 
 * Microsoft Windows 10
-* Other versions of Windows have not been tested yet.
 
 ## TODO
 
