@@ -8,13 +8,18 @@ email: peppy0510@hotmail.com
 
 
 import json
+import sys
 
 from base.dictionary import load_commented_json
 from pathlib import Path
 
-root = Path(__name__).resolve().parent
-user_path = Path(f'{root}/settings.json')
-default_path = Path(f'{root}/source/settings.json')
+# from this file, not the working directory: an installed exe starts in its own folder
+if hasattr(sys, '_MEIPASS'):
+    default_path = Path(sys._MEIPASS, 'settings.json')
+    user_path = Path(sys.executable).parent / 'settings.json'
+else:
+    default_path = Path(__file__).resolve().parent / 'settings.json'
+    user_path = Path(__file__).resolve().parent.parent / 'settings.json'
 
 # with open(default_path, 'rb') as file:
 #     default = json.loads(file.read().decode('utf-8'))

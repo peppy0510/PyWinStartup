@@ -66,6 +66,7 @@ a = Analysis([os.path.join('source', 'main.pyw')],
 
 
 a.datas += grapdatas(path.assets, 'icon', 2, 'DATA', ['icon.ico'])
+a.datas += [('settings.json', os.path.join(path.home, 'source', 'settings.json'), 'DATA')]
 a.datas += grapdatas(path.assets, 'kakaotalk', 2, 'DATA', ['KakaoTalkNoAdv.v1.1.0.exe'])
 a.datas += grapdatas(path.assets, os.path.join(
     'nateon', 'NATEON', 'Skins', 'NateRes'), 5, 'DATA', ['main_view.xml', 'MessageView.xml'])
